@@ -93,6 +93,16 @@ describe Slither::Column do
       @column.parse('   23445').should == 234.45
     end    
 
+    it "should support float type with implied decimals" do
+      @column = Slither::Column.new(:amount, 10, :type=> :float, :implied => 3)
+      @column.parse('  234450').should == 234.45
+      @column.parse('  234560').should == 234.56
+      @column.parse('  234000').should == 234.0
+      @column.parse('00234000').should == 234.0
+      @column.parse('Ryan    ').should == 0
+      @column.parse('00023450').should == 23.45
+    end
+
     it "should support the date type" do
       @column = Slither::Column.new(:date, 10, :type => :date)
       dt = @column.parse('2009-08-22')
@@ -200,6 +210,20 @@ describe Slither::Column do
       @column.format('234.400').should    == '0000234.40'
       @column = Slither::Column.new(:amount, 10, :type => :float, :format => "%.4f", :align => :left, :padding => :space)
       @column.format('3').should          == '3.0000    '
+    end
+
+    it "should support the float type with implied decimals" do
+      @column = Slither::Column.new(:amount, 10, :type => :float, :implied => 3)
+      @column.format(234.45).should       == '    234450'
+      @column.format('234.4500').should   == '    234450'
+      @column.format('3').should          == '      3000'
+    end
+
+    it "should support the float type with implied decimals and padding" do
+      @column = Slither::Column.new(:amount, 10, :type => :float, :implied => 3, :padding => :zero)
+      @column.format(234.45).should       == '0000234450'
+      @column.format('234.4500').should   == '0000234450'
+      @column.format('3').should          == '0000003000'
     end
     
     it "should support the money_with_implied_decimal type" do

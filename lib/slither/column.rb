@@ -28,7 +28,11 @@ class Slither
         when :integer
           value.to_i
         when :float, :money
-          value.to_f
+          if @options[:implied]
+            value.to_f / (10**@options[:implied])
+          else
+            value.to_f
+          end
         when :money_with_implied_decimal
           value.to_f / 100
         when :date
@@ -93,7 +97,11 @@ class Slither
               value.to_s
             end
           when :float
-            @options[:format] ? @options[:format] % value.to_f : value.to_f.to_s
+            if @options[:implied]
+              "%d" % (value.to_f * 10**@options[:implied])
+            else
+              @options[:format] ? @options[:format] % value.to_f : value.to_f.to_s
+            end
           when :money
             "%.2f" % value.to_f
           when :money_with_implied_decimal
