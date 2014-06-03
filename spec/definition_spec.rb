@@ -28,7 +28,7 @@ describe Slither::Definition do
   describe "when creating a section" do
     before(:each) do
       @d = Slither::Definition.new
-      @section = mock('section').as_null_object
+      @section = double('section').as_null_object
     end
     
     it "should create and yield a new section object" do
@@ -46,7 +46,7 @@ describe Slither::Definition do
     end
     
     it "should not create duplicate section names" do
-      lambda { @d.section(:header) {} }.should_not raise_error(ArgumentError)
+      lambda { @d.section(:header) {} }.should_not raise_error
       lambda { @d.section(:header) {} }.should raise_error(ArgumentError, "Reserved or duplicate section name: 'header'")
     end
     
@@ -58,7 +58,7 @@ describe Slither::Definition do
   describe "when creating a template" do
     before(:each) do
       @d = Slither::Definition.new
-      @section = mock('section').as_null_object
+      @section = double('section').as_null_object
     end
     
     it "should create a new section" do

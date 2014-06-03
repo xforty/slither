@@ -51,7 +51,7 @@ describe Slither::Section do
     
     it "should allow duplicate column names that are reserved (i.e. spacer)" do
       @section.spacer 10
-      lambda { @section.spacer 10 }.should_not raise_error(Slither::DuplicateColumnNameError)
+      lambda { @section.spacer 10 }.should_not raise_error
     end    
   end
   
@@ -64,13 +64,13 @@ describe Slither::Section do
   
   describe "when adding a template" do
     before(:each) do
-      @template = mock('templated section', :columns => [1,2,3], :options => {})
-      @definition = mock("definition", :templates => { :test => @template } )
+      @template = double('templated section', :columns => [1,2,3], :options => {})
+      @definition = double("definition", :templates => { :test => @template } )
       @section.definition = @definition
     end
     
     it "should ensure the template exists" do
-      @definition.stub! :templates => {}
+      @definition.stub :templates => {}
       lambda { @section.template(:none) }.should raise_error(ArgumentError)
     end
     
@@ -84,7 +84,7 @@ describe Slither::Section do
        @section = Slither::Section.new(:body, :align => :left)
        @section.definition = @definition
        @template.should_receive(:length).and_return(0)
-       @template.stub! :options => {:align => :right}
+       @template.stub :options => {:align => :right}
        @section.template :test
        @section.options.should == {:align => :left}
     end

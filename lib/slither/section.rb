@@ -54,6 +54,7 @@ class Slither
     
     def parse(line)
       line_data = line.unpack(unpacker)
+      line_data.map! {|ld| ld.force_encoding line.encoding }
       row = {}
       @columns.each_with_index do |c, i|
         row[c.name] = c.parse(line_data[i]) unless RESERVED_NAMES.include?(c.name)
