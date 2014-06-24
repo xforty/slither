@@ -48,15 +48,15 @@ describe Slither do
     end
     
     it "should output a file" do
-  	  file = double('file')
-  	  text = double('string')
-  	  file.should_receive(:write).with(text)
-  	  File.should_receive(:open).with('file.txt', 'w').and_yield(file)
-  	  Slither.should_receive(:generate).with(:test, {}).and_return(text)
+      file = double('file')
+      text = double('string')
+      file.should_receive(:write).with(text)
+      File.should_receive(:open).with('file.txt', 'w').and_yield(file)
+      Slither.should_receive(:generate).with(:test, {}).and_return(text)
       Slither.write('file.txt', :test, {})
-  	end       
+    end       
   end
-	
+  
   describe "when parsing a file" do
     before(:each) do
       @file_name = 'file.txt'
