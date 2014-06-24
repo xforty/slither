@@ -20,7 +20,7 @@ describe Slither::Generator do
       end     
     end
     @definition = Slither.define :test, &structure
-    @dos_definition = Slither.define :dos_test, :seperator => "\r\n", :trailing_seperator => true, &structure
+    @dos_definition = Slither.define :dos_test, :separator => "\r\n", :trailing_separator => true, &structure
     @data = {
       :header => [ {:type => "HEAD", :file_id => "1" }],
       :body => [ 
@@ -43,7 +43,7 @@ describe Slither::Generator do
     @generator.generate(@data).should == expected
   end 
 
-  it "should generate a string with correct seperator" do
+  it "should generate a string with correct separator" do
     expected = "HEAD         1\r\n      Paul    Hewson\r\n      Dave     Evans\r\nFOOT         1\r\n"
     @dos_generator.generate(@data).should == expected
   end 

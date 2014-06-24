@@ -5,8 +5,8 @@ class Slither
     DEFAULTS = {
       :align => :right,
       :by_bytes => true,
-      :seperator => "\n",
-      :trailing_seperator => false
+      :separator => "\n",
+      :trailing_separator => false
     }
     
     def initialize(options = {})
