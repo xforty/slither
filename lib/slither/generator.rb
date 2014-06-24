@@ -19,7 +19,10 @@ class Slither
   	      raise(Slither::RequiredSectionEmptyError, "Required section '#{section.name}' was empty.") unless section.optional
 	      end
 	    end
-	    @builder.join("\n")
+      sep = @definition.options.seperator
+	    @builder.join(sep).tap do |file|
+        break file + sep if @definition.options.trailing_seperator
+      end
 		end
 		
 	end

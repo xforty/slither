@@ -1,11 +1,18 @@
 class Slither  
   class Definition
     attr_reader :sections, :templates, :options
+
+    DEFAULTS = {
+      :align => :right,
+      :by_bytes => true,
+      :seperator => "\n",
+      :trailing_seperator => false
+    }
     
     def initialize(options = {})
       @sections = []
       @templates = {}
-      @options = { :align => :right, :by_bytes => true }.merge(options)
+      @options = DEFAULTS.merge(options)
     end
     
     def section(name, options = {}, &block)
